@@ -2,6 +2,8 @@ package tests.ch04;
 
 import base.TestBase;
 import org.junit.jupiter.api.Test;
+import pages.HandsOnPage;
+import pages.WebFormPage;
 
 import java.nio.file.Path;
 
@@ -11,18 +13,18 @@ public class ScreenshotTest extends TestBase {
 
     @Test
     void testScreenshot() {
-        Path destination = handsOnPage.open().takeScreenshot();
+        Path destination = new HandsOnPage(context).open().takeScreenshot();
         assertThat(destination).exists();
     }
 
     @Test
     void testScreenshotBase64() {
-        handsOnPage.open().takeScreenshotInBase64();
+        new HandsOnPage(context).open().takeScreenshotInBase64();
     }
 
     @Test
     void testPartialScreenshot() {
-        Path destination = webFormPage.open().takeFormScreenshot();
+        Path destination = new WebFormPage(context).open().takeFormScreenshot();
         assertThat(destination).exists();
     }
 }

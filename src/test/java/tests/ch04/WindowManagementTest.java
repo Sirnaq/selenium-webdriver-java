@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver.Window;
+import pages.HandsOnPage;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,7 +13,7 @@ public class WindowManagementTest extends TestBase {
 
     @Test
     void testWindow() {
-        handsOnPage.open();
+        new HandsOnPage(context).open();
         Window window = context.options().window();
         Point initialPosition = window.getPosition();
         Dimension initialSize = window.getSize();

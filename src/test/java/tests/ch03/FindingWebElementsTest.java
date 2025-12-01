@@ -4,6 +4,7 @@ import base.TestBase;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import pages.WebFormPage;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,13 +15,13 @@ public class FindingWebElementsTest extends TestBase {
 
     @Test
     void testByTagName() {
-        webFormPage.open()
+        new WebFormPage(context).open()
                 .checkTextAreaDomAttributeEquals("rows", "3");
     }
 
     @Test
     void testByHtmlAttributes() {
-        webFormPage.open()
+        new WebFormPage(context).open()
                 .checkIfTextInputEnabled()                                       //po nazwie
                 .checkIfTextInputThreeAttributesEqual("text")       //po identyfikatorze
                 .checkIfFirstFormControlElementHasName("my-text");  //Po nazwie klasy
@@ -28,21 +29,21 @@ public class FindingWebElementsTest extends TestBase {
 
     @Test
     void testByLinkText() {
-        webFormPage.open()
+        new WebFormPage(context).open()
                 .checkReturnToIndexTagNameAndCursor()
                 .checkIfRectAndLocationMatchBetweenPartialAndExactText();
     }
 
     @Test
     void testByCssSelectorBasic() {
-        webFormPage.open();
+        new WebFormPage(context).open();
         WebElement hidden = context.driver().findElement(By.cssSelector("input[type=hidden]"));
         assertThat(hidden.isDisplayed()).isFalse();
     }
 
     @Test
     void testByCssSelectorAdvanced() {
-        webFormPage.open()
+        new WebFormPage(context).open()
                 .checkIfIdOfTheFirstCheckBoxIs("my-check-1")
                 .checkIfFirstCheckBoxIsSelected()
                 .checkIfIdOfTheSecondCheckBoxIs("my-check-2")
@@ -51,38 +52,39 @@ public class FindingWebElementsTest extends TestBase {
 
     @Test
     void testByXpathBasic() {
-        webFormPage.open().checkIfHiddenElementIsNotDisplayed();
+        new WebFormPage(context).open().checkIfHiddenElementIsNotDisplayed();
     }
 
     @Test
     void testByXpathAdvanced() {
-        webFormPage.open()
+        new WebFormPage(context).open()
                 .checkIfCheckedRadioIsSelectedAndHasId("my-radio-1")
                 .checkIfUncheckedRadioIsNotSelectedAndHasId("my-radio-2");
     }
 
     @Test
     void testByIdOrName() {
-        webFormPage.open().checkIfMyFileIdIsBlankAndNameIsNotBlank();
+        new WebFormPage(context).open().checkIfMyFileIdIsBlankAndNameIsNotBlank();
     }
 
     @Test
     void testByChained() {
-        webFormPage.open().checkIfRowsInFormSizeIs(1);
+        new WebFormPage(context).open().checkIfRowsInFormSizeIs(1);
     }
 
     @Test
     void testByAll() {
-        webFormPage.open().checkIfAllRowsAndFormSizeIs(5);
+        new WebFormPage(context).open().checkIfAllRowsAndFormSizeIs(5);
     }
 
     @Test
     void testRelativeLocators() {
-        webFormPage.open().checkIfRelativeLocatorHasName("my-readonly");
+        new WebFormPage(context).open().checkIfRelativeLocatorHasName("my-readonly");
     }
 
     @Test
     void testDatePicker() {
+        WebFormPage webFormPage = new WebFormPage(context);
         webFormPage.open();
         LocalDate today = LocalDate.now(); //get current date from system clock
         int currentYear = today.getYear();
