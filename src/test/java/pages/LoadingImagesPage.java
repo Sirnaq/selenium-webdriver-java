@@ -24,12 +24,12 @@ public class LoadingImagesPage {
     }
 
     public LoadingImagesPage setImplicitWaitTo(Duration duration) {
-        context.driver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        context.options().timeouts().implicitlyWait(Duration.ofSeconds(10));
         return this;
     }
 
     public LoadingImagesPage resetImplicitWait() {
-        context.driver().manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
+        context.options().timeouts().implicitlyWait(Duration.ofSeconds(0));
         return this;
     }
 

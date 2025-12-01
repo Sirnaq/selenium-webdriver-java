@@ -8,7 +8,8 @@ import java.util.Properties;
 public class Config {
 
     private static final Properties config = readConfigProperties();
-    private static final String BASE_URL = constructBaseUrl();
+    private static final String BASE_URL = constructAttribute("base.url");
+    private static final boolean HEADLESS = Boolean.parseBoolean(constructAttribute("headless"));
 
     public static String baseUrl() {
         return BASE_URL.endsWith("/") ? BASE_URL : BASE_URL + "/";
@@ -18,22 +19,27 @@ public class Config {
         return baseUrl() + path.replaceFirst("^/", "");
     }
 
+    public static Boolean isHeadless() {
+        return HEADLESS;
+    }
+
     public static Properties getConfig() {
         return config;
     }
 
-    private static String constructBaseUrl() {
-        String baseUrl = Optional.ofNullable(System.getenv("BASE_URL"))
-                .orElse(System.getProperty("base.url", ""));
-        if (baseUrl.isEmpty()) {
-            baseUrl = config.getProperty("base.url");
+    private static String constructAttribute(String attributeName) {
+        String attribute = Optional.ofNullable(System.getenv(
+                        attributeName.toUpperCase().replace(".", "_")))
+                .orElse(System.getProperty(attributeName, ""));
+        if (attribute.isEmpty()) {
+            attribute = config.getProperty(attributeName);
         }
-        return baseUrl;
+        return attribute;
     }
 
     private static Properties readConfigProperties() {
         Properties properties = new Properties();
-        try (InputStream inputStream = DriverFactory.class.getClassLoader()
+        try (InputStream inputStream = Config.class.getClassLoader()
                 .getResourceAsStream("config.properties")) {
             if (inputStream == null) {
                 throw new RuntimeException("There is no config.properties file");

@@ -42,11 +42,6 @@ public class HandsOnPage {
         return this;
     }
 
-    public HandsOnPage checkTitleText(String expectedTitle) {
-        assertThat(context.driver().getTitle()).isEqualTo(expectedTitle);
-        return this;
-    }
-
     public NavigationPage navigationClick() {
         context.click(NAVIGATION);
         return new NavigationPage(context);
