@@ -3,11 +3,15 @@ package tests.ch04;
 import base.TestBase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pages.DialogBoxesPage;
 
 public class DialogTest extends TestBase {
 
+    private DialogBoxesPage dialogBoxesPage;
+
     @BeforeEach
     void setup() {
+        dialogBoxesPage = new DialogBoxesPage(context);
         dialogBoxesPage.open();
     }
 

@@ -2,6 +2,7 @@ package tests.ch04;
 
 import base.TestBase;
 import org.junit.jupiter.api.Test;
+import pages.HandsOnPage;
 import utils.Config;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,7 +14,7 @@ public class DriverHistoryTest extends TestBase {
         String firstPage = Config.url("navigation1.html");
         String secondPage = Config.url("navigation2.html");
         String thirdPage = Config.url("navigation3.html");
-        handsOnPage.open();
+        new HandsOnPage(context).open();
         context.driver().navigate().to(firstPage);
         context.driver().navigate().to(secondPage);
         context.driver().navigate().to(thirdPage);

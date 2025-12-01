@@ -46,6 +46,7 @@ public class DriverFactory {
             chromeOptions.addArguments("--headless=new");
             chromeOptions.addArguments("--disable-gpu");
             chromeOptions.addArguments("--no-sandbox");
+            chromeOptions.addArguments("--window-size=1920,1080");
         }
         return new ChromeDriver(chromeOptions);
     }
@@ -53,8 +54,10 @@ public class DriverFactory {
     private static WebDriver getFirefoxDriver(Boolean isHeadless) {
         WebDriverManager.firefoxdriver().setup();
         FirefoxOptions firefoxOptions = new FirefoxOptions();
-        if (isHeadless)
+        if (isHeadless){
             firefoxOptions.addArguments("--headless");
+            firefoxOptions.addArguments("--window-size=1920,1080");
+        }
         return new FirefoxDriver(firefoxOptions);
     }
 
@@ -65,6 +68,7 @@ public class DriverFactory {
             edgeOptions.addArguments("--headless=new");
             edgeOptions.addArguments("--disable-gpu");
             edgeOptions.addArguments("--no-sandbox");
+            edgeOptions.addArguments("--window-size=1920,1080");
         }
         return new EdgeDriver(edgeOptions);
     }

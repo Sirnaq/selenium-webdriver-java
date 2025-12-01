@@ -4,11 +4,15 @@ import base.TestBase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Cookie;
+import pages.CookiesPage;
 
 public class CookieTest extends TestBase {
 
+    private CookiesPage cookiesPage;
+
     @BeforeEach
     void setUp() {
+        cookiesPage = new CookiesPage(context);
         cookiesPage.open();
     }
 

@@ -3,6 +3,7 @@ package tests.ch03;
 import base.TestBase;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Point;
+import pages.*;
 import utils.FileUtil;
 
 import java.time.Duration;
@@ -16,7 +17,7 @@ public class ActionsOnElementsTest extends TestBase {
     @Test
     void testSendKeys() {
         final String TEST_INPUT_STRING = "Hello World";
-        webFormPage.open().textInputSendKeys(TEST_INPUT_STRING)
+        new WebFormPage(context).open().textInputSendKeys(TEST_INPUT_STRING)
                 .checkThatTextInputValueIs(TEST_INPUT_STRING)
                 .clearTextInput()
                 .checkThatTextInputValueIsEmpty();
@@ -28,13 +29,14 @@ public class ActionsOnElementsTest extends TestBase {
         String filename = fileUtil.getAbsolutePath();
         fileUtil.logFileName();
 
-        webFormPage.open().fileInputSendKeys(filename)
+        new WebFormPage(context).open().fileInputSendKeys(filename)
                 .formSubmit()
                 .checkThatCurrentUrlIsNotWebFormPage();
     }
 
     @Test
     void testSlider() {
+        WebFormPage webFormPage = new WebFormPage(context);
         String initValue = webFormPage.open().logAndGetValueOfExampleRange();
         String endValue = webFormPage.increaseValueOfExampleRange(5).logAndGetValueOfExampleRange();
         assertThat(initValue).isNotEqualTo(endValue);
@@ -42,7 +44,7 @@ public class ActionsOnElementsTest extends TestBase {
 
     @Test
     void testNavigation() {
-        handsOnPage.open()
+        new HandsOnPage(context).open()
                 .navigationClick()
                 .nextClick()
                 .threeClick()
@@ -53,7 +55,7 @@ public class ActionsOnElementsTest extends TestBase {
 
     @Test
     void testRadioButtonsAndCheckboxes() {
-        webFormPage.open().defaultCheckBoxClick()
+        new WebFormPage(context).open().defaultCheckBoxClick()
                 .checkThatDefaultCheckBoxIsSelected()
                 .defaultRadioClick()
                 .checkThatDefaultRadioIsSelected();
@@ -61,7 +63,7 @@ public class ActionsOnElementsTest extends TestBase {
 
     @Test
     void testContextAndDoubleClick() {
-        dropdownMenuPage.open()
+        new DropdownMenuPage(context).open()
                 .rightClickOnTheSecondMenu()
                 .checkIfTheSecondMenuIsDisplayed()
                 .doubleClickOnTheThirdMenu()
@@ -71,12 +73,13 @@ public class ActionsOnElementsTest extends TestBase {
     @Test
     void testMouseOver() {
         List<String> imageList = Arrays.asList("compass", "calendar", "award", "landscape");
-        mouseOverPage.open().hoverOverEachAndCheckCaption(imageList);
+        new MouseOverPage(context).open().hoverOverEachAndCheckCaption(imageList);
     }
 
     @Test
     void testDragAndDrop() {
         int offset = 100;
+        DragAndDropPage dragAndDropPage = new DragAndDropPage(context);
         Point initLocation = dragAndDropPage.open().getDraggableLocation();
         Point finalLocation = dragAndDropPage
                 .dragAndDropDraggable(offset, 0)
@@ -91,12 +94,12 @@ public class ActionsOnElementsTest extends TestBase {
 
     @Test
     void testClickAndHold() {
-        drawInCanvasPage.open().drawCircle(10, 15);
+        new DrawInCanvasPage(context).open().drawCircle(10, 15);
     }
 
     @Test
     void testCopyAndPaste() {
-        webFormPage.open().textInputSendKeys("Hellow World")
+        new WebFormPage(context).open().textInputSendKeys("Hellow World")
                 .copyFromTextInput()
                 .copyToTextArea()
                 .checkIfAreaAndInputValuesMatch();
@@ -107,7 +110,7 @@ public class ActionsOnElementsTest extends TestBase {
      **/
     @Test
     void testImplicitWait() {
-        loadingImagesPage.open()
+        new LoadingImagesPage(context).open()
                 .setImplicitWaitTo(Duration.ofSeconds(10))
                 .checkIfLandscapeLinkContains("landscape")
                 .resetImplicitWait();
@@ -118,14 +121,14 @@ public class ActionsOnElementsTest extends TestBase {
      **/
     @Test
     void testExplicitWait() {
-        loadingImagesPage.open()
+        new LoadingImagesPage(context).open()
                 .waitForLandscape(10)
                 .checkIfLandscapeLinkContains("landscape");
     }
 
     @Test
     void testSlowCalculator() {
-        slowCalculatorPage.open()
+        new SlowCalculatorPage(context).open()
                 .pressOne()
                 .pressPlus()
                 .pressThree()
@@ -138,7 +141,7 @@ public class ActionsOnElementsTest extends TestBase {
      **/
     @Test
     void testFluentWait() {
-        loadingImagesPage.open()
+        new LoadingImagesPage(context).open()
                 .fluentWaitForLandscape()
                 .checkIfLandscapeLinkContains("landscape");
     }

@@ -2,6 +2,7 @@ package tests.ch04;
 
 import base.TestBase;
 import org.junit.jupiter.api.Test;
+import pages.WebStoragePage;
 
 public class WebStorageTest extends TestBase {
 
@@ -10,7 +11,7 @@ public class WebStorageTest extends TestBase {
         String sessionStorageKey = "new element";
         String sessionStorageValue = "new value";
 
-        webStoragePage.open()
+        new WebStoragePage(context).open()
                 .logSessionStorage()
                 .checkIfSessionStorageSizeIs(2)
                 .addSessionStorageElement(sessionStorageKey, sessionStorageValue)

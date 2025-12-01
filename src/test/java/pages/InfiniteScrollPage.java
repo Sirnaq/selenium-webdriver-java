@@ -5,27 +5,27 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import utils.Config;
 
-public class InfiniteScroll {
+public class InfiniteScrollPage {
 
     private static final By PARAGRAPH = By.tagName("p");
 
     TestContext context;
 
-    public InfiniteScroll(TestContext context) {
+    public InfiniteScrollPage(TestContext context) {
         this.context = context;
     }
 
-    public InfiniteScroll open() {
+    public InfiniteScrollPage open() {
         context.driver().get(Config.url("infinite-scroll.html"));
         return this;
     }
 
-    public InfiniteScroll waitForParagraphsToLoad() {
+    public InfiniteScrollPage waitForParagraphsToLoad() {
         context.wdWait().until(ExpectedConditions.numberOfElementsToBeMoreThan(PARAGRAPH, 0));
         return this;
     }
 
-    public InfiniteScroll scrollToTheLastParagraphLoaded() {
+    public InfiniteScrollPage scrollToTheLastParagraphLoaded() {
         int numberOfParagraphsLoaded = context.driver().findElements(PARAGRAPH).size();
         WebElement lastParagraph = context.driver().findElement(
                 By.xpath(String.format("//p[%d]", numberOfParagraphsLoaded)));
