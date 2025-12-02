@@ -1,4 +1,4 @@
-package tests.ch05;
+package tests.ch05.headless;
 
 import io.github.bonigarcia.seljup.Arguments;
 import io.github.bonigarcia.seljup.SeleniumJupiter;
