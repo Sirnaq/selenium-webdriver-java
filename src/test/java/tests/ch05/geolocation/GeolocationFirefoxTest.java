@@ -16,9 +16,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class GeolocationFirefoxTest {
     TestContext context;
 
-    /**
-     * Test is failing for some reason, maybe there is some new method unknown by the author
-     **/
     @BeforeEach
     void setup() {
         FirefoxOptions options = new FirefoxOptions();
@@ -39,7 +36,7 @@ public class GeolocationFirefoxTest {
     }
 
     @Test
-    @Disabled
+    @Disabled("Test is failing for some reason, maybe there is some new method unknown by the author")
     void testGeolocation() {
         GeolocationPage geolocationPage = new GeolocationPage(context);
         geolocationPage.open().getCoordinatesClick();

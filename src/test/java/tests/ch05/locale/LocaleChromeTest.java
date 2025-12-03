@@ -1,4 +1,4 @@
-package tests.ch05.extensions;
+package tests.ch05.locale;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
@@ -6,31 +6,29 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import pages.HandsOnPage;
+import pages.MultiLanguagePage;
 import pages.TestContext;
 import utils.Config;
 
-import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 
-public class ChomeExtensionTest {
+public class LocaleChromeTest {
+
     TestContext context;
+    String lang;
 
     @BeforeEach
     void setup() {
+        lang = "es-ES";
         ChromeOptions options = new ChromeOptions();
         if (Config.isHeadless()) {
             options.addArguments("--headless=new");
         }
+        Map<String, Object> prefs = new HashMap<>();
+        prefs.put("intl.accept_languages", lang);
+        options.setExperimentalOption("prefs", prefs);
 
-        Path extension;
-        try {
-            extension = Paths.get(ClassLoader.getSystemResource("shade_dark_mode.crx").toURI());
-        } catch (URISyntaxException e) {
-            throw new RuntimeException("Failed to load extension dark-bg.crx", e);
-        }
-        options.addExtensions(extension.toFile());
         WebDriver driver = WebDriverManager.chromedriver().capabilities(options).create();
         context = new TestContext(driver);
     }
@@ -41,8 +39,8 @@ public class ChomeExtensionTest {
     }
 
     @Test
-    void testExtension() {
-        new HandsOnPage(context).open()
-                .checkIfPageTitleIs("Hands-On Selenium WebDriver with Java");
+    void testChromeLogging() {
+        new MultiLanguagePage(context).open()
+                .bodyShouldHaveText(lang);
     }
 }
