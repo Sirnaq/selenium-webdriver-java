@@ -1,4 +1,4 @@
-package tests.ch03;
+package tests.ch05.incognito;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
@@ -10,39 +10,29 @@ import pages.HandsOnPage;
 import pages.TestContext;
 import utils.Config;
 
-public class WdmBuilderTest {
+public class IncognitoChromeTest {
 
     TestContext context;
-    HandsOnPage handsOnPage;
 
     @BeforeEach
-    void setup() {
+    void setup(){
         ChromeOptions options = new ChromeOptions();
         if(Config.isHeadless()){
             options.addArguments("--headless=new");
         }
+        options.addArguments("--incognito");
         WebDriver driver = WebDriverManager.chromedriver().capabilities(options).create();
         context = new TestContext(driver);
-        handsOnPage = new HandsOnPage(context);
-    }
-
-    @Test
-    void testBasicMethods() {
-        handsOnPage.open()
-                .checkIfPageTitleIs("Hands-On Selenium WebDriver with Java")
-                .checkIfUrlEqualsBaseUrl()
-                .checkIfPageSourceContains("</html>");
-    }
-
-    @Test
-    void testSessionId() {
-        handsOnPage.open()
-                .checkIfSessionIdExists()
-                .logSessionId();
     }
 
     @AfterEach
-    void tearDown() {
+    void tearDown(){
         context.driver().quit();
+    }
+
+    @Test
+    void testBinary() {
+        new HandsOnPage(context).open()
+                .checkIfPageTitleIs("Hands-On Selenium WebDriver with Java");
     }
 }

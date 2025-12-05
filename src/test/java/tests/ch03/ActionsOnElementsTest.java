@@ -29,7 +29,8 @@ public class ActionsOnElementsTest extends TestBase {
         String filename = fileUtil.getAbsolutePath();
         fileUtil.logFileName();
 
-        new WebFormPage(context).open().fileInputSendKeys(filename)
+        new WebFormPage(context).open()
+                .fileInputSendKeys(filename)
                 .formSubmit()
                 .checkThatCurrentUrlIsNotWebFormPage();
     }

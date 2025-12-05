@@ -20,7 +20,7 @@ public class HelloWorldChromeTest {
     public void chromeTest() {
         handsOnPage.open()
                 .logTitleOfThePage()
-                .checkTitleText("Hands-On Selenium WebDriver with Java");
+                .checkIfPageTitleIs("Hands-On Selenium WebDriver with Java");
     }
 
     @AfterEach

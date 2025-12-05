@@ -1,37 +1,29 @@
-package tests.ch03;
+package tests.ch05.headless;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeOptions;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import pages.HandsOnPage;
 import pages.TestContext;
-import utils.Config;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class WebDriverBuilderTest {
+public class HeadlessEdgeTest {
 
     TestContext context;
 
     @BeforeAll
-    void setupClass() {
-        WebDriverManager.firefoxdriver().setup();
+    void setClass() {
+        WebDriverManager.edgedriver().setup();
     }
 
     @BeforeEach
-    void setup() {
+    void setUp() {
         EdgeOptions options = new EdgeOptions();
-        if (Config.isHeadless()){
-            options.addArguments("--headless=new");
-        }
+        options.addArguments("--headless=new");
         WebDriver driver = RemoteWebDriver.builder().oneOf(options).build();
         context = new TestContext(driver);
-    }
-
-    @Test
-    void hollow() {
-        //todo test implementation
     }
 
     @AfterEach
@@ -39,4 +31,9 @@ public class WebDriverBuilderTest {
         context.driver().quit();
     }
 
+    @Test
+    void testHeadless() {
+        new HandsOnPage(context).open()
+                .checkIfPageTitleIs("Hands-On Selenium WebDriver with Java");
+    }
 }

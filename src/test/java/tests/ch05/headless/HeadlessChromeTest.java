@@ -1,9 +1,10 @@
-package tests.ch05;
+package tests.ch05.headless;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import pages.HandsOnPage;
@@ -11,13 +12,14 @@ import pages.TestContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class HeadlessChromeJupiterTest {
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+public class HeadlessChromeTest {
 
     private TestContext context;
     private HandsOnPage handsOnPage;
 
     @BeforeAll
-    static void setupClass() {
+    void setupClass() {
         WebDriverManager.chromedriver().setup();
     }
 

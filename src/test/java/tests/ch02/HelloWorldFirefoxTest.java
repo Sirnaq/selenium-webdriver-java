@@ -20,7 +20,7 @@ public class HelloWorldFirefoxTest {
     public void firefoxTest() {
         handsOnPage.open()
                 .logTitleOfThePage()
-                .checkTitleText("Hands-On Selenium WebDriver with Java");
+                .checkIfPageTitleIs("Hands-On Selenium WebDriver with Java");
     }
 
     @AfterEach

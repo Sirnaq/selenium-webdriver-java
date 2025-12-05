@@ -1,4 +1,4 @@
-package tests.ch03;
+package tests.ch05.extensions;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
@@ -10,39 +10,39 @@ import pages.HandsOnPage;
 import pages.TestContext;
 import utils.Config;
 
-public class WdmBuilderTest {
+import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
+public class ChomeExtensionTest {
     TestContext context;
-    HandsOnPage handsOnPage;
 
     @BeforeEach
     void setup() {
         ChromeOptions options = new ChromeOptions();
-        if(Config.isHeadless()){
+        if (Config.isHeadless()) {
             options.addArguments("--headless=new");
         }
+
+        Path extension;
+        try {
+            extension = Paths.get(ClassLoader.getSystemResource("shade_dark_mode.crx").toURI());
+        } catch (URISyntaxException e) {
+            throw new RuntimeException("Failed to load extension dark-bg.crx", e);
+        }
+        options.addExtensions(extension.toFile());
         WebDriver driver = WebDriverManager.chromedriver().capabilities(options).create();
         context = new TestContext(driver);
-        handsOnPage = new HandsOnPage(context);
-    }
-
-    @Test
-    void testBasicMethods() {
-        handsOnPage.open()
-                .checkIfPageTitleIs("Hands-On Selenium WebDriver with Java")
-                .checkIfUrlEqualsBaseUrl()
-                .checkIfPageSourceContains("</html>");
-    }
-
-    @Test
-    void testSessionId() {
-        handsOnPage.open()
-                .checkIfSessionIdExists()
-                .logSessionId();
     }
 
     @AfterEach
     void tearDown() {
         context.driver().quit();
+    }
+
+    @Test
+    void testExtension() {
+        new HandsOnPage(context).open()
+                .checkIfPageTitleIs("Hands-On Selenium WebDriver with Java");
     }
 }
