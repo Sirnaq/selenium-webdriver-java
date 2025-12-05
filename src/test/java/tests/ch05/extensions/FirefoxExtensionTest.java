@@ -23,7 +23,7 @@ public class FirefoxExtensionTest {
     void setup() {
         FirefoxOptions options = new FirefoxOptions();
         if (Config.isHeadless()) {
-            options.addArguments("---headless");
+            options.addArguments("--headless");
         }
         Path extension;
         try {

@@ -32,4 +32,9 @@ public class JigsawPage {
         context.driver().get(String.format("https://%s:%s@jigsaw.w3.org/HTTP/Digest/",login,password));
         return this;
     }
+
+    public JigsawPage open() {
+        context.driver().get("https://jigsaw.w3.org/HTTP/Basic/");
+        return this;
+    }
 }
