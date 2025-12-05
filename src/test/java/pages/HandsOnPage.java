@@ -4,8 +4,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.ScriptKey;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.devtools.NetworkInterceptor;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.SessionId;
+import org.openqa.selenium.remote.http.Contents;
+import org.openqa.selenium.remote.http.HttpResponse;
+import org.openqa.selenium.remote.http.Route;
 import utils.Config;
 
 import java.io.File;
@@ -16,6 +20,7 @@ import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
@@ -27,6 +32,7 @@ public class HandsOnPage {
 
     private static final By NAVIGATION = By.linkText("Navigation");
     private static final By WEB_FORM = By.linkText("Web form");
+    private static final By IMAGE = By.tagName("img");
 
     public HandsOnPage(TestContext context) {
         this.context = context;
@@ -175,6 +181,32 @@ public class HandsOnPage {
                 window.setTimeout(callback,%d);
                 """, waitMillis);
         context.js().executeAsyncScript(script);
+        return this;
+    }
+
+    public HandsOnPage interceptImageReplaceWith(String image) {
+        Path img;
+        byte[] bytes;
+        try {
+            img = Paths.get(ClassLoader.getSystemResource(image).toURI());
+            bytes = Files.readAllBytes(img);
+        } catch (Exception e) {
+            throw new RuntimeException("Test failed during initiation faze: ", e);
+        }
+        try (NetworkInterceptor interceptor = new NetworkInterceptor(context.driver(),
+                Route.matching(httpRequest -> httpRequest.getUri().endsWith(".png"))
+                        .to(() -> req -> new HttpResponse().setContent(
+                                Contents.bytes(bytes)
+                        ))
+        )) {
+            open();
+            return this;
+        }
+    }
+
+    public HandsOnPage imgShouldHaveWidthGreaterThan(int expectedWidth) {
+        assertThat(Integer.parseInt(Objects.requireNonNull(context.visible(IMAGE).getAttribute("width"))))
+                .isGreaterThan(expectedWidth);
         return this;
     }
 

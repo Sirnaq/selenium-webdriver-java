@@ -9,6 +9,8 @@ public class LongPage {
 
     private static final By LOREM_IPSUM = By.xpath("//*[contains(text(),'Lorem ipsum')]");
     private static final By LAST_PARAGRAPH = By.cssSelector("p:last-child");
+    private static final By PARAGRAPH = By.tagName("p");
+    private static final By CONTAINER = By.className("container");
 
     public LongPage(TestContext context) {
         this.context = context;
