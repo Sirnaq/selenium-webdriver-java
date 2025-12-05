@@ -15,7 +15,7 @@ public class ConsoleLogsPage {
     }
 
     public ConsoleLogsPage open() {
-        context.driver().get(Config.url("console-logs,html"));
+        context.driver().get(Config.url("console-logs.html"));
         return this;
     }
 

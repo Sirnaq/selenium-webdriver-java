@@ -27,11 +27,21 @@ public class GeolocationPage {
 
     public String getLatitude(){
         String coordinates = context.getText(COORDINATES);
-        return coordinates.substring(10,12);
+        return extractCoordinate(coordinates,"Latitude");
     }
 
     public String getLongitude(){
         String coordinates = context.getText(COORDINATES);
-        return coordinates.substring(33,35);
+        return extractCoordinate(coordinates,"Longitude");
+    }
+
+    private static String extractCoordinate(String text, String key) {
+        String pattern = key + ":\\s*(\\d+(?=\\.|°))";
+        java.util.regex.Pattern r = java.util.regex.Pattern.compile(pattern);
+        java.util.regex.Matcher m = r.matcher(text);
+        if (m.find()) {
+            return m.group(1);
+        }
+        throw new IllegalArgumentException("Nie znaleziono współrzędnej: " + key);
     }
 }

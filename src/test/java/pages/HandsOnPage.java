@@ -210,6 +210,13 @@ public class HandsOnPage {
         return this;
     }
 
+    public HandsOnPage mutateImage(String newSrc) {
+        WebElement img = context.visible(IMAGE);
+        String script = String.format("arguments[0].src = '%s';",newSrc);
+        context.js().executeScript(script,img);
+        return this;
+    }
+
     private SessionId getSessionId() {
         return ((RemoteWebDriver) context.driver()).getSessionId();
     }
