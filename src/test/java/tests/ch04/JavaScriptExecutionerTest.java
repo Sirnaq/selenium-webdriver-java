@@ -46,8 +46,9 @@ public class JavaScriptExecutionerTest extends TestBase {
     }
 
     /**
-     * Pinned scripts tests are flaky, don't make such tests
+     * "Pinned scripts tests are flaky, avoid making such tests"
      **/
+
     @Test
     void testPinnedScripts() {
         String message = "Hello World!";

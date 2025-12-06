@@ -14,6 +14,6 @@ public class TestBase {
 
     @AfterEach
     void tearDown() {
-        context.driver().quit();
+        context.driverQuit();
     }
 }

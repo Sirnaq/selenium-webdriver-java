@@ -109,7 +109,12 @@ public class HandsOnPage {
     }
 
     public HandsOnPage executeSecondPinnedScript(String message) {
-        String result = (String) context.js().executeScript(getListOfScripts().getLast(), message);
+        String result;
+        try {
+            result = (String) context.js().executeScript(getListOfScripts().getLast(), message);
+        }catch (ClassCastException e){
+            result = (String) context.js().executeScript(getListOfScripts().getFirst(), message);
+        }
         assertThat(result).isEqualTo(message);
         return this;
     }

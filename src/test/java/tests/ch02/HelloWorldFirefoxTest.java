@@ -25,6 +25,6 @@ public class HelloWorldFirefoxTest {
 
     @AfterEach
     public void tearDown() {
-        context.driver().quit();
+        context.driverQuit();
     }
 }
