@@ -14,11 +14,27 @@ import java.util.Properties;
 public class DriverFactory {
 
     private static final Properties config = Config.getConfig();
+    private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
     private DriverFactory() {
     }
 
-    public static WebDriver getDriver() {
+    public static WebDriver getDriver(){
+        if (driver.get() == null){
+            driver.set(createDriver());
+        }
+        return driver.get();
+    }
+
+    public static void quitDriver(){
+        WebDriver webDriver = driver.get();
+        if (webDriver != null){
+            webDriver.quit();
+            driver.remove();
+        }
+    }
+
+    private static WebDriver createDriver() {
         String browserType = getProperty("browserType");
         Boolean isHeadless = Boolean.parseBoolean(getProperty("headless"));
 

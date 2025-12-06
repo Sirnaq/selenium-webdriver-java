@@ -55,6 +55,10 @@ public class TestContext {
         return driver;
     }
 
+    public void driverQuit(){
+        DriverFactory.quitDriver();
+    }
+
     public WebDriverWait wdWait() {
         return wait;
     }

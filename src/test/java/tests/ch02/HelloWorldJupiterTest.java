@@ -20,7 +20,7 @@ public class HelloWorldJupiterTest {
 
     @AfterEach
     void tearDown() {
-        context.driver().quit();
+        context.driverQuit();
     }
 
 }
