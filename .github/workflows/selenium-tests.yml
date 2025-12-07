@@ -36,6 +36,8 @@ jobs:
           restore-keys: ${{ runner.os }}-maven-
 
       - name: Run all 110+ tests – locally, parallel, headless
+        env:
+          MAVEN_OPTS: "-Dstyle.color=never"
         run: |
           mvn -B clean verify \
             -Dheadless=true \
