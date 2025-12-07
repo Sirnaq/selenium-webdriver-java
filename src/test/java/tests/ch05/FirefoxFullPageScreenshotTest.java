@@ -25,7 +25,6 @@ public class FirefoxFullPageScreenshotTest {
     TestContext context;
 
     @BeforeEach
-    @Disabled("Disabled due file writing error on linux CI")
     void setup() {
         FirefoxOptions options = new FirefoxOptions();
         if (Config.isHeadless()) {
@@ -41,6 +40,7 @@ public class FirefoxFullPageScreenshotTest {
     }
 
     @Test
+    @Disabled("Disabled due file writing error on linux CI")
     void testFirefoxFullPageScreenshot() {
         new LongPage(context).open().waitForTextToLoad();
 
@@ -53,5 +53,4 @@ public class FirefoxFullPageScreenshotTest {
         }
         assertThat(destination).exists();
     }
-
 }
