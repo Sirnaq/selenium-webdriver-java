@@ -1,39 +1,16 @@
 <configuration>
-    <!-- Appender domyślny (może mieć kolory, jeśli framework je dodaje) -->
+    <!-- ... Twoje appender-y pozostają bez zmian ... -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
+    <!-- ... -->
 
-    <!-- Appender bez kolorów, z prostym layoutem -->
-    <appender name="CONSOLE_NO_COLOR" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
-            <layout class="ch.qos.logback.classic.PatternLayout">
-                <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-            </layout>
-        </encoder>
-    </appender>
+    <!-- Dodaj konkretny logger, który wyciszy logi Apache HttpClient Wire -->
+    <logger name="org.apache.hc.client5.http.wire" level="INFO" />
 
-    <!-- Definicja domyślna ROOT używa appender-a CONSLE -->
-    <root level="INFO">
-        <appender-ref ref="CONSOLE" />
-    </root>
-
-    <!-- Logika warunkowa, która ZASTĘPUJE domyślne appender-y appender-em bez kolorów -->
-    <if condition='property("NO_COLOR").contains("true")'>
-        <then>
-            <!-- Usuwamy domyślny appender i dodajemy ten bez kolorów -->
-            <root level="INFO">
-                <appender-ref ref="CONSOLE_NO_COLOR" />
-            </root>
-            <root level="DEBUG">
-                <appender-ref ref="CONSOLE_NO_COLOR" />
-            </root>
-        </then>
-    </if>
-
-    <!-- Poziom DEBUG jest zdefiniowany dla obu przypadków, można go scalić z powyższymi rootami -->
+    <!-- Główny ROOT logger pozostaje na DEBUG (lub INFO, w zależności od potrzeb) -->
     <root level="DEBUG">
         <appender-ref ref="CONSOLE" />
     </root>

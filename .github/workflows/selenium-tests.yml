@@ -28,11 +28,12 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
 
-      - name: Run all 110+ tests – locally, parallel, headless
+      - name: Run all
         run: |
           mvn -B clean verify \
             -Dheadless=true \
-            -DbrowserType=firefox
+            -DbrowserType=firefox \
+            -Dorg.slf4j.simpleLogger.defaultLogLevel=info
         env:
           NO_COLOR: "true"
           MAVEN_OPTS: "-Dstyle.color=never"
