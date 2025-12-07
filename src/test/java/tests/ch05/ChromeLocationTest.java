@@ -20,6 +20,7 @@ public class ChromeLocationTest extends TestBase {
     @BeforeAll
     void setupClass(){
         assumeThat(Config.getConfig().getProperty("browserType")).isEqualTo("chrome");
+        assumeThat(Config.isRemote()).isFalse();
     }
 
     @Test

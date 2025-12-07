@@ -9,7 +9,9 @@ public class Config {
 
     private static final Properties config = readConfigProperties();
     private static final String BASE_URL = constructAttribute("base.url");
+    private static final String GRID_URL = constructAttribute("grid.url");
     private static final boolean HEADLESS = Boolean.parseBoolean(constructAttribute("headless"));
+    private static final boolean BROWSER_REMOTE = Boolean.parseBoolean(constructAttribute("browser.remote"));
 
     public static String baseUrl() {
         return BASE_URL.endsWith("/") ? BASE_URL : BASE_URL + "/";
@@ -19,12 +21,20 @@ public class Config {
         return baseUrl() + path.replaceFirst("^/", "");
     }
 
-    public static Boolean isHeadless() {
+    public static boolean isHeadless() {
         return HEADLESS;
     }
 
     public static Properties getConfig() {
         return config;
+    }
+
+    public static boolean isRemote(){
+        return BROWSER_REMOTE;
+    }
+
+    public static String gridUrl(){
+        return GRID_URL;
     }
 
     private static String constructAttribute(String attributeName) {
