@@ -1,0 +1,17 @@
+<configuration>
+    <!-- ... Twoje appender-y pozostają bez zmian ... -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- ... -->
+
+    <!-- Dodaj konkretny logger, który wyciszy logi Apache HttpClient Wire -->
+    <logger name="org.apache.hc.client5.http.wire" level="INFO" />
+
+    <!-- Główny ROOT logger pozostaje na DEBUG (lub INFO, w zależności od potrzeb) -->
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE" />
+    </root>
+</configuration>

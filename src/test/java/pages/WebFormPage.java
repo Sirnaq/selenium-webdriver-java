@@ -10,6 +10,7 @@ import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.locators.RelativeLocator.RelativeBy;
 import org.openqa.selenium.support.pagefactory.ByAll;
 import org.openqa.selenium.support.pagefactory.ByChained;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import utils.Config;
 
@@ -119,6 +120,7 @@ public class WebFormPage {
     }
 
     public WebFormPage checkThatCurrentUrlIsNotWebFormPage() {
+        context.wdWait().until(ExpectedConditions.urlContains("submitted-form"));
         assertThat(context.driver().getCurrentUrl()).isNotEqualTo(Config.url("web-form.html"));
         return this;
     }

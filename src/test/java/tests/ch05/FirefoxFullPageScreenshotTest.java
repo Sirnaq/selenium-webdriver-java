@@ -3,6 +3,7 @@ package tests.ch05;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebDriver;
@@ -39,6 +40,7 @@ public class FirefoxFullPageScreenshotTest {
     }
 
     @Test
+    @Disabled("Disabled due file writing error on linux CI")
     void testFirefoxFullPageScreenshot() {
         new LongPage(context).open().waitForTextToLoad();
 
@@ -51,5 +53,4 @@ public class FirefoxFullPageScreenshotTest {
         }
         assertThat(destination).exists();
     }
-
 }
