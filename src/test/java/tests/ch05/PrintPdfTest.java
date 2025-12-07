@@ -1,6 +1,7 @@
 package tests.ch05;
 
 import base.TestBase;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Pdf;
 import org.openqa.selenium.PrintsPage;
@@ -19,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PrintPdfTest extends TestBase {
 
     @Test
+    @Disabled("Disabled due file writing error on linux CI")
     void testPrint() {
         new HandsOnPage(context).open();
         PrintsPage printer = (PrintsPage) context.driver();

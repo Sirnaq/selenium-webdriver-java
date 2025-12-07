@@ -1,18 +1,24 @@
 package tests.ch05.locale;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import pages.MultiLanguagePage;
 import pages.TestContext;
 import utils.Config;
 
+import static org.assertj.core.api.Assumptions.assumeThat;
+
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class LocaleDefaultLangTest {
     TestContext context;
     String lang;
+
+    @BeforeAll
+    void setupClass(){
+        assumeThat(Config.getConfig().getProperty("browserType")).isEqualTo("chrome");
+    }
 
     @BeforeEach
     void setup() {
