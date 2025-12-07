@@ -1,20 +1,39 @@
 <configuration>
+    <!-- Appender domyślny (może mieć kolory, jeśli framework je dodaje) -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <!-- To wyłącza kolory TYLKO jeśli jest zmienna środowiskowa NO_COLOR (standard 2025) -->
-    <if condition='property("NO_COLOR").contains("true")'>
-        <then>
-            <appender-ref ref="CONSOLE" />
-        </then>
-    </if>
+    <!-- Appender bez kolorów, z prostym layoutem -->
+    <appender name="CONSOLE_NO_COLOR" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            </layout>
+        </encoder>
+    </appender>
 
+    <!-- Definicja domyślna ROOT używa appender-a CONSLE -->
     <root level="INFO">
         <appender-ref ref="CONSOLE" />
     </root>
+
+    <!-- Logika warunkowa, która ZASTĘPUJE domyślne appender-y appender-em bez kolorów -->
+    <if condition='property("NO_COLOR").contains("true")'>
+        <then>
+            <!-- Usuwamy domyślny appender i dodajemy ten bez kolorów -->
+            <root level="INFO">
+                <appender-ref ref="CONSOLE_NO_COLOR" />
+            </root>
+            <root level="DEBUG">
+                <appender-ref ref="CONSOLE_NO_COLOR" />
+            </root>
+        </then>
+    </if>
+
+    <!-- Poziom DEBUG jest zdefiniowany dla obu przypadków, można go scalić z powyższymi rootami -->
     <root level="DEBUG">
         <appender-ref ref="CONSOLE" />
     </root>
