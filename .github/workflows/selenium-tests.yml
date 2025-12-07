@@ -29,13 +29,13 @@ jobs:
           restore-keys: ${{ runner.os }}-maven-
 
       - name: Run all 110+ tests – locally, parallel, headless
-        env:
-          NO_COLOR: "true"
-          MAVEN_OPTS: "-Dstyle.color=never"
         run: |
           mvn -B clean verify \
             -Dheadless=true \
             -DbrowserType=firefox
+        env:
+          NO_COLOR: "true"
+          MAVEN_OPTS: "-Dstyle.color=never"
 
       - name: Upload test reports (even if failed)
         if: always()
