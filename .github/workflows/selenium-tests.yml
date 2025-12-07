@@ -37,6 +37,7 @@ jobs:
 
       - name: Run all 110+ tests – locally, parallel, headless
         env:
+          NO_COLOR: "true"
           MAVEN_OPTS: "-Dstyle.color=never"
         run: |
           mvn -B clean verify \
