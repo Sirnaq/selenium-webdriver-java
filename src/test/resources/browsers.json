@@ -1,0 +1,20 @@
+{
+  "browsers": [
+    [
+      {
+        "type": "edge",
+        "arguments": [
+          "--headless=new"
+        ]
+      }
+    ],
+    [
+      {
+        "type": "chrome",
+        "arguments": [
+          "--headless=new"
+        ]
+      }
+    ]
+  ]
+}
