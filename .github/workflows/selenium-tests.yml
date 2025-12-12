@@ -34,6 +34,7 @@ jobs:
             -Dheadless=true \
             -DbrowserType=firefox \
             -Dorg.slf4j.simpleLogger.defaultLogLevel=info
+          mvn allure:report
         env:
           NO_COLOR: "true"
           MAVEN_OPTS: "-Dstyle.color=never"
@@ -44,6 +45,8 @@ jobs:
         with:
           name: test-results
           path: |
+            target/site/allure-maven-plugin/
+            target/allure-results/
             target/surefire-reports/
             target/site/
             screenshots/
